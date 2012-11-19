@@ -73,4 +73,50 @@ class UnitTest extends \lithium\test\Unit {
 		), $result['data']);
 	}
 
+	public function testClassHasAttributeTrue() {
+		$this->assertTrue($this->unit->assertClassHasAttribute('name', '\ReflectionClass'));
+	}
+
+	public function testClassHasAttributeFalse() {
+		$this->assertFalse($this->unit->assertClassHasAttribute('foo', '\ReflectionClass'));
+	}
+
+	public function testClassHasAttributeFalseResults() {
+		$this->assertFalse($this->unit->assertClassHasAttribute('foo', '\ReflectionClass'));
+		
+		$results = $this->unit->results();
+		$result = array_pop($results);
+		
+		$this->assertEqual('fail', $result['result']);
+		$this->assertEqual(array(
+			'expected' => 'foo',
+			'result' => array(
+				new \ReflectionProperty('ReflectionClass', 'name')
+			)
+		), $result['data']);
+	}
+
+	public function testClassNotHasAttributeTrue() {
+		$this->assertTrue($this->unit->assertClassNotHasAttribute('foo', '\ReflectionClass'));
+	}
+
+	public function testClassNotHasAttributeFalse() {
+		$this->assertFalse($this->unit->assertClassNotHasAttribute('name', '\ReflectionClass'));
+	}
+
+	public function testClassNotHasAttributeFalseResults() {
+		$this->assertFalse($this->unit->assertClassNotHasAttribute('name', '\ReflectionClass'));
+		
+		$results = $this->unit->results();
+		$result = array_pop($results);
+		
+		$this->assertEqual('fail', $result['result']);
+		$this->assertEqual(array(
+			'expected' => 'name',
+			'result' => array(
+				new \ReflectionProperty('ReflectionClass', 'name')
+			)
+		), $result['data']);
+	}
+
 }

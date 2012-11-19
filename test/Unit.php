@@ -2,6 +2,8 @@
 
 namespace li3_unit\test;
 
+use ReflectionClass;
+
 abstract class Unit extends \lithium\test\Unit {
 
 	/**
@@ -18,7 +20,7 @@ abstract class Unit extends \lithium\test\Unit {
 	 * @param  int    $expected Expected count
 	 * @param  array  $array    Result
 	 * @param  string $message  optional
-	 * @return mixed
+	 * @return bool
 	 */
 	public function assertCount($expected, $array, $message = '{:message}') {
 		return $this->assert($expected === ($result = count($array)), $message, compact('expected', 'result'));
@@ -35,13 +37,16 @@ abstract class Unit extends \lithium\test\Unit {
 	 * $this->assertArrayHasKey('bar', array('bar' => 'baz'));
 	 * ~~~
 	 * 
-	 * @param  [type] $expected [description]
-	 * @param  [type] $array    [description]
-	 * @param  string $message  [description]
-	 * @return [type]           [description]
+	 * @param  string $key      The key you are looking for
+	 * @param  [type] $array    The array to search through
+	 * @param  string $message  optional
+	 * @return bool
 	 */
-	public function assertArrayHasKey($expected, $result, $message = '{:message}') {
-		return $this->assert(isset($result[$expected]), $message, compact('expected', 'result'));
+	public function assertArrayHasKey($key, $array, $message = '{:message}') {
+		return $this->assert(isset($array[$key]), $message, array(
+			'expected' => $key,
+			'result' => $array
+		));
 	}
 
 	/**
@@ -55,13 +60,64 @@ abstract class Unit extends \lithium\test\Unit {
 	 * $this->assertArrayNotHasKey('bar', array('bar' => 'baz'));
 	 * ~~~
 	 * 
-	 * @param  [type] $expected [description]
-	 * @param  [type] $array    [description]
-	 * @param  string $message  [description]
-	 * @return [type]           [description]
+	 * @param  int    $key      Expected count
+	 * @param  [type] $array    The array to search through
+	 * @param  string $message  optional
+	 * @return bool
 	 */
-	public function assertArrayNotHasKey($expected, $result, $message = '{:message}') {
-		return $this->assert(!isset($result[$expected]), $message, compact('expected', 'result'));
+	public function assertArrayNotHasKey($key, $array, $message = '{:message}') {
+		return $this->assert(!isset($array[$key]), $message, array(
+			'expected' => $key,
+			'result' => $array
+		));
+	}
+
+	/**
+	 * Will mark the test true if $class has an attribute $attributeName
+	 *
+	 * ~~~ php
+	 * $this->assertClassHasAttribute('name', '\ReflectionClass');
+	 * ~~~
+	 *
+	 * ~~~ php
+	 * $this->assertClassHasAttribute('__construct', '\ReflectionClass');
+	 * ~~~
+	 * 
+	 * @param  string        $attributeName The attribute you wish to look for
+	 * @param  string|object $class         The class name or object
+	 * @param  string        $message       optional
+	 * @return bool
+	 */
+	public function assertClassHasAttribute($attributeName, $class, $message = '{:message}') {
+        $object = new ReflectionClass($class);
+        return $this->assert($object->hasProperty($attributeName), $message, array(
+        	'expected' => $attributeName,
+        	'result' => $object->getProperties()
+    	));
+	}
+
+	/**
+	 * Will mark the test true if $class has an attribute $attributeName
+	 *
+	 * ~~~ php
+	 * $this->assertClassNotHasAttribute('__construct', '\ReflectionClass');
+ 	 * ~~~
+	 *
+	 * ~~~ php
+	 * $this->assertClassNotHasAttribute('name', '\ReflectionClass');
+	 * ~~~
+	 * 
+	 * @param  string        $attributeName The attribute you wish to look for
+	 * @param  string|object $class         The class name or object
+	 * @param  string        $message       optional
+	 * @return bool
+	 */
+	public function assertClassNotHasAttribute($attributeName, $class, $message = '{:message}') {
+        $object = new ReflectionClass($class);
+        return $this->assert(!$object->hasProperty($attributeName), $message, array(
+        	'expected' => $attributeName,
+        	'result' => $object->getProperties()
+    	));
 	}
 
 	// http://www.phpunit.de/manual/current/en/writing-tests-for-phpunit.html#writing-tests-for-phpunit.assertions.assertArrayHasKey
