@@ -89,11 +89,11 @@ abstract class Unit extends \lithium\test\Unit {
 	 * @return bool
 	 */
 	public function assertClassHasAttribute($attributeName, $class, $message = '{:message}') {
-        $object = new ReflectionClass($class);
-        return $this->assert($object->hasProperty($attributeName), $message, array(
-        	'expected' => $attributeName,
-        	'result' => $object->getProperties()
-    	));
+		$object = new ReflectionClass($class);
+		return $this->assert($object->hasProperty($attributeName), $message, array(
+			'expected' => $attributeName,
+			'result' => $object->getProperties()
+		));
 	}
 
 	/**
@@ -101,7 +101,7 @@ abstract class Unit extends \lithium\test\Unit {
 	 *
 	 * ~~~ php
 	 * $this->assertClassNotHasAttribute('__construct', '\ReflectionClass');
- 	 * ~~~
+	 * ~~~
 	 *
 	 * ~~~ php
 	 * $this->assertClassNotHasAttribute('name', '\ReflectionClass');
@@ -113,11 +113,11 @@ abstract class Unit extends \lithium\test\Unit {
 	 * @return bool
 	 */
 	public function assertClassNotHasAttribute($attributeName, $class, $message = '{:message}') {
-        $object = new ReflectionClass($class);
-        return $this->assert(!$object->hasProperty($attributeName), $message, array(
-        	'expected' => $attributeName,
-        	'result' => $object->getProperties()
-    	));
+		$object = new ReflectionClass($class);
+		return $this->assert(!$object->hasProperty($attributeName), $message, array(
+			'expected' => $attributeName,
+			'result' => $object->getProperties()
+		));
 	}
 
 	/**
@@ -137,18 +137,18 @@ abstract class Unit extends \lithium\test\Unit {
 	 * @return bool
 	 */
 	public function assertClassHasStaticAttribute($attributeName, $class, $message = '{:message}') {
-        $object = new ReflectionClass($class);
-        if ($object->hasProperty($attributeName)) {
-            $attribute = $object->getProperty($attributeName);
-	        return $this->assert($attribute->isStatic(), $message, array(
-	        	'expected' => $attributeName,
-	        	'result' => $object->getProperties()
-	    	));
-        }
-        return $this->assert(false, $message, array(
-        	'expected' => $attributeName,
-        	'result' => $object->getProperties()
-    	));
+		$object = new ReflectionClass($class);
+		if ($object->hasProperty($attributeName)) {
+			$attribute = $object->getProperty($attributeName);
+			return $this->assert($attribute->isStatic(), $message, array(
+				'expected' => $attributeName,
+				'result' => $object->getProperties()
+			));
+		}
+		return $this->assert(false, $message, array(
+			'expected' => $attributeName,
+			'result' => $object->getProperties()
+		));
 	}
 
 	/**
@@ -168,18 +168,18 @@ abstract class Unit extends \lithium\test\Unit {
 	 * @return bool
 	 */
 	public function assertClassNotHasStaticAttribute($attributeName, $class, $message = '{:message}') {
-        $object = new ReflectionClass($class);
-        if ($object->hasProperty($attributeName)) {
-            $attribute = $object->getProperty($attributeName);
-	        return $this->assert(!$attribute->isStatic(), $message, array(
-	        	'expected' => $attributeName,
-	        	'result' => $object->getProperties()
-	    	));
-        }
-        return $this->assert(true, $message, array(
-        	'expected' => $attributeName,
-        	'result' => $object->getProperties()
-    	));
+		$object = new ReflectionClass($class);
+		if ($object->hasProperty($attributeName)) {
+			$attribute = $object->getProperty($attributeName);
+			return $this->assert(!$attribute->isStatic(), $message, array(
+				'expected' => $attributeName,
+				'result' => $object->getProperties()
+			));
+		}
+		return $this->assert(true, $message, array(
+			'expected' => $attributeName,
+			'result' => $object->getProperties()
+		));
 	}
 
 	// http://www.phpunit.de/manual/current/en/writing-tests-for-phpunit.html#writing-tests-for-phpunit.assertions.assertArrayHasKey
