@@ -107,6 +107,7 @@ abstract class Unit extends \lithium\test\Unit {
 	 * $this->assertClassNotHasAttribute('name', '\ReflectionClass');
 	 * ~~~
 	 * 
+	 * @throws ReflectionException If the given class does not exist
 	 * @param  string        $attributeName The attribute you wish to look for
 	 * @param  string|object $class         The class name or object
 	 * @param  string        $message       optional
@@ -131,6 +132,7 @@ abstract class Unit extends \lithium\test\Unit {
 	 * $this->assertClassHasStaticAttribute('_methodFilters', '\lithium\core\StaticObject');
 	 * ~~~
 	 * 
+	 * @throws ReflectionException If the given class does not exist
 	 * @param  string        $attributeName The attribute you wish to look for
 	 * @param  string|object $class         The class name or object
 	 * @param  string        $message       optional
@@ -162,6 +164,7 @@ abstract class Unit extends \lithium\test\Unit {
 	 * $this->assertClassNotHasStaticAttribute('foobar', '\lithium\core\StaticObject')
 	 * ~~~
 	 * 
+	 * @throws ReflectionException If the given class does not exist
 	 * @param  string        $attributeName The attribute you wish to look for
 	 * @param  string|object $class         The class name or object
 	 * @param  string        $message       optional

@@ -96,6 +96,13 @@ class UnitTest extends \lithium\test\Unit {
 		), $result['data']);
 	}
 
+	public function testClassHasAttributeClassNotFound() {
+		$self =& $this;
+		$this->assertException('ReflectionException', function() use($self) {
+			$self->unit->assertClassHasAttribute('foo', '\foo\bar\baz');
+		});
+	}
+
 	public function testClassNotHasAttributeTrue() {
 		$this->assertTrue($this->unit->assertClassNotHasAttribute('foo', '\ReflectionClass'));
 	}
@@ -117,6 +124,13 @@ class UnitTest extends \lithium\test\Unit {
 				new \ReflectionProperty('ReflectionClass', 'name')
 			)
 		), $result['data']);
+	}
+
+	public function testClassNotHasAttributeClassNotFound() {
+		$self =& $this;
+		$this->assertException('ReflectionException', function() use($self) {
+			$self->unit->assertClassNotHasAttribute('foo', '\foo\bar\baz');
+		});
 	}
 
 	public function testClassHasStaticAttributeTrue() {
@@ -143,6 +157,13 @@ class UnitTest extends \lithium\test\Unit {
 		), $result['data']);
 	}
 
+	public function testClassHasStaticAttributeClassNotFound() {
+		$self =& $this;
+		$this->assertException('ReflectionException', function() use($self) {
+			$self->unit->assertClassHasStaticAttribute('foo', '\foo\bar\baz');
+		});
+	}
+
 	public function testClassNotHasStaticAttributeTrue() {
 		$this->assertTrue($this->unit->assertClassNotHasStaticAttribute('foobar', '\lithium\core\StaticObject'));
 	}
@@ -165,6 +186,13 @@ class UnitTest extends \lithium\test\Unit {
 				new \ReflectionProperty('lithium\\core\\StaticObject', '_parents')
 			)
 		), $result['data']);
+	}
+
+	public function testClassNotHasStaticAttributeClassNotFound() {
+		$self =& $this;
+		$this->assertException('ReflectionException', function() use($self) {
+			$self->unit->assertClassNotHasStaticAttribute('foo', '\foo\bar\baz');
+		});
 	}
 
 }
