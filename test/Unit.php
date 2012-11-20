@@ -199,6 +199,7 @@ abstract class Unit extends \lithium\test\Unit {
 	 * @param  string $needle   The needle you are looking for
 	 * @param  mixed  $haystack An array, iterable object, or string
 	 * @param  string $message  optional
+	 * @return bool
 	 */
 	public function assertContains($needle, $haystack, $message = '{:message}') {
 		if(is_string($haystack)) {
@@ -235,6 +236,7 @@ abstract class Unit extends \lithium\test\Unit {
 	 * @param  string $needle   The needle you are looking for
 	 * @param  mixed  $haystack An array, iterable object, or string
 	 * @param  string $message  optional
+	 * @return bool
 	 */
 	public function assertNotContains($needle, $haystack, $message = '{:message}') {
 		if(is_string($haystack)) {
@@ -253,6 +255,104 @@ abstract class Unit extends \lithium\test\Unit {
 		}
 		return $this->assert(true, $message, array(
 			'expected' => $needle,
+			'result' => $haystack
+		));
+	}
+
+	/**
+	 * Will mark the test true if $haystack contains only items of $type
+	 * 
+	 * ~~~ php
+	 * $this->assertContainsOnly('int', array(1,2,3));
+	 * ~~~
+	 * 
+	 * ~~~ php
+	 * $this->assertContainsOnly('int', array('foo', 'bar', 'baz'));
+	 * ~~~
+	 * 
+	 * @param  string $type     The data type to check for array|bool|callable|double|float|int|integer|long|null|numeric|object|real|resource|scalar|string
+	 * @param  mixed  $haystack An array or iterable object
+	 * @param  string $message  optional
+	 * @return bool
+	 */
+	public function assertContainsOnly($type, $haystack, $message = '{:message}') {
+		$types = array(
+			'array' => 'is_array',
+			'bool' => 'is_bool',
+			'callable' => 'is_callable',
+			'double' => 'is_double',
+			'float' => 'is_float',
+			'int' => 'is_int',
+			'integer' => 'is_integer',
+			'long' => 'is_long',
+			'null' => 'is_null',
+			'numeric' => 'is_numeric',
+			'object' => 'is_object',
+			'real' => 'is_real',
+			'resource' => 'is_resource',
+			'scalar' => 'is_scalar',
+			'string' => 'is_string'
+		);
+		$method = $types[$type];
+		foreach($haystack as $key => $value) {
+			if(!$method($value)) {
+				return $this->assert(false, $message, array(
+					'expected' => $type,
+					'result' => $haystack
+				));
+			}
+		}
+		return $this->assert(true, $message, array(
+			'expected' => $type,
+			'result' => $haystack
+		));
+	}
+
+	/**
+	 * Will mark the test true if $haystack contains only items of $type
+	 * 
+	 * ~~~ php
+	 * $this->assertNotContainsOnly('int', array('foo', 'bar', 'baz'));
+	 * ~~~
+	 * 
+	 * ~~~ php
+	 * $this->assertNotContainsOnly('int', array(1,2,3));
+	 * ~~~
+	 * 
+	 * @param  string $type     The data type to check for array|bool|callable|double|float|int|integer|long|null|numeric|object|real|resource|scalar|string
+	 * @param  mixed  $haystack An array or iterable object
+	 * @param  string $message  optional
+	 * @return bool
+	 */
+	public function assertNotContainsOnly($type, $haystack, $message = '{:message}') {
+		$types = array(
+			'array' => 'is_array',
+			'bool' => 'is_bool',
+			'callable' => 'is_callable',
+			'double' => 'is_double',
+			'float' => 'is_float',
+			'int' => 'is_int',
+			'integer' => 'is_integer',
+			'long' => 'is_long',
+			'null' => 'is_null',
+			'numeric' => 'is_numeric',
+			'object' => 'is_object',
+			'real' => 'is_real',
+			'resource' => 'is_resource',
+			'scalar' => 'is_scalar',
+			'string' => 'is_string'
+		);
+		$method = $types[$type];
+		foreach($haystack as $key => $value) {
+			if(!$method($value)) {
+				return $this->assert(true, $message, array(
+					'expected' => $type,
+					'result' => $haystack
+				));
+			}
+		}
+		return $this->assert(false, $message, array(
+			'expected' => $type,
 			'result' => $haystack
 		));
 	}

@@ -257,4 +257,50 @@ class UnitTest extends \lithium\test\Unit {
 		), $result['data']);
 	}
 
+	public function testAssertContainsOnlyTrue() {
+		$this->assertTrue($this->unit->assertContainsOnly('int', array(1,2,3)));
+	}
+
+	public function testAssertContainsOnlyFalse() {
+		$this->assertFalse($this->unit->assertContainsOnly('string', array(1,2,3)));
+	}
+
+	public function testAssertContainsOnlyFalseResults() {
+		$this->unit->assertContainsOnly('string', array(1,2,3));
+
+		$results = $this->unit->results();
+		$result = array_pop($results);
+		
+		$this->assertEqual('fail', $result['result']);
+		$this->assertEqual(array(
+			'expected' => 'string',
+			'result' => array(
+				1,2,3
+			)
+		), $result['data']);
+	}
+
+	public function testAssertNotContainsOnlyTrue() {
+		$this->assertTrue($this->unit->assertNotContainsOnly('string', array(1,2,3)));
+	}
+
+	public function testAssertNotContainsOnlyFalse() {
+		$this->assertFalse($this->unit->assertNotContainsOnly('int', array(1,2,3)));
+	}
+
+	public function testAssertNotContainsOnlyFalseResults() {
+		$this->unit->assertNotContainsOnly('int', array(1,2,3));
+
+		$results = $this->unit->results();
+		$result = array_pop($results);
+		
+		$this->assertEqual('fail', $result['result']);
+		$this->assertEqual(array(
+			'expected' => 'int',
+			'result' => array(
+				1,2,3
+			)
+		), $result['data']);
+	}	
+
 }
