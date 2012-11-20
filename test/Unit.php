@@ -185,6 +185,66 @@ abstract class Unit extends \lithium\test\Unit {
 		));
 	}
 
+	/**
+	 * Will mark the test true if $haystack contains $needle as a value
+	 * 
+	 * ~~~ php
+	 * $this->assertContains('foo', array('foo', 'bar', 'baz'));
+	 * ~~~
+	 * 
+	 * ~~~ php
+	 * $this->assertContains(4, array(1,2,3));
+	 * ~~~
+	 * 
+	 * @param  string $needle   The needle you are looking for
+	 * @param  mixed  $haystack An array or an iterable object
+	 * @param  string $message  optional
+	 */
+	public function assertContains($needle, $haystack, $message = '{:message}') {
+		foreach($haystack as $key => $value) {
+			if($value === $needle) {
+				return $this->assert(true, $message, array(
+					'expected' => $needle,
+					'result' => $haystack
+				));
+			}
+		}
+		return $this->assert(false, $message, array(
+			'expected' => $needle,
+			'result' => $haystack
+		));
+	}
+
+	/**
+	 * Will mark the test true if $haystack contains $needle as a value
+	 * 
+	 * ~~~ php
+	 * $this->assertNotContains(4, array(1,2,3));
+	 * ~~~
+	 * 
+	 * ~~~ php
+	 * $this->assertNotContains('foo', array('foo', 'bar', 'baz'));
+	 * ~~~
+	 * 
+	 * @param  string $needle   The needle you are looking for
+	 * @param  mixed  $haystack An array or an iterable object
+	 * @param  string $message  optional
+	 */
+	public function assertNotContains($needle, $haystack, $message = '{:message}') {
+		foreach($haystack as $key => $value) {
+			if($value === $needle) {
+				return $this->assert(false, $message, array(
+					'expected' => $needle,
+					'result' => $haystack
+				));
+			}
+		}
+		return $this->assert(true, $message, array(
+			'expected' => $needle,
+			'result' => $haystack
+		));
+	}
+
 	// http://www.phpunit.de/manual/current/en/writing-tests-for-phpunit.html#writing-tests-for-phpunit.assertions.assertArrayHasKey
 
 }

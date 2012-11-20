@@ -195,4 +195,50 @@ class UnitTest extends \lithium\test\Unit {
 		});
 	}
 
+	public function testAssertContainsTrue() {
+		$this->assertTrue($this->unit->assertContains('bar', array('foo', 'bar', 'baz')));
+	}
+
+	public function testAssertContainsFalse() {
+		$this->assertFalse($this->unit->assertContains('foobar', array('foo', 'bar', 'baz')));
+	}
+
+	public function testAssertContainsFalseResults() {
+		$this->unit->assertContains('foobar', array('foo', 'bar', 'baz'));
+
+		$results = $this->unit->results();
+		$result = array_pop($results);
+		
+		$this->assertEqual('fail', $result['result']);
+		$this->assertEqual(array(
+			'expected' => 'foobar',
+			'result' => array(
+				'foo', 'bar', 'baz'
+			)
+		), $result['data']);
+	}
+
+	public function testAssertNotContainsTrue() {
+		$this->assertTrue($this->unit->assertNotContains('foobar', array('foo', 'bar', 'baz')));
+	}
+
+	public function testAssertNotContainsFalse() {
+		$this->assertFalse($this->unit->assertNotContains('bar', array('foo', 'bar', 'baz')));
+	}
+
+	public function testAssertNotContainsFalseResults() {
+		$this->unit->assertNotContains('bar', array('foo', 'bar', 'baz'));
+
+		$results = $this->unit->results();
+		$result = array_pop($results);
+		
+		$this->assertEqual('fail', $result['result']);
+		$this->assertEqual(array(
+			'expected' => 'bar',
+			'result' => array(
+				'foo', 'bar', 'baz'
+			)
+		), $result['data']);
+	}
+
 }
