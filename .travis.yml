@@ -10,6 +10,7 @@ before_install:
   - mv li3_unit/ framework/app/libraries/li3_unit
   - cd framework
   - git submodule update --init --recursive
-  - cd app/libraries/li3_unit
+  - cd libraries/lithium && git pull --rebase
+  - cd ../../app/libraries/li3_unit
 
 script: ../../../libraries/lithium/console/li3 test tests
