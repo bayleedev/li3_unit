@@ -120,6 +120,68 @@ abstract class Unit extends \lithium\test\Unit {
     	));
 	}
 
+	/**
+	 * Will mark the test true if $class has a static property $attributeName
+	 *
+	 * ~~~ php
+	 * $this->assertClassHasStaticAttribute('foobar', '\lithium\core\StaticObject');
+	 * ~~~
+	 *
+	 * ~~~ php
+	 * $this->assertClassHasStaticAttribute('_methodFilters', '\lithium\core\StaticObject');
+	 * ~~~
+	 * 
+	 * @param  string        $attributeName The attribute you wish to look for
+	 * @param  string|object $class         The class name or object
+	 * @param  string        $message       optional
+	 * @return bool
+	 */
+	public function assertClassHasStaticAttribute($attributeName, $class, $message = '{:message}') {
+        $object = new ReflectionClass($class);
+        if ($object->hasProperty($attributeName)) {
+            $attribute = $object->getProperty($attributeName);
+	        return $this->assert($attribute->isStatic(), $message, array(
+	        	'expected' => $attributeName,
+	        	'result' => $object->getProperties()
+	    	));
+        }
+        return $this->assert(false, $message, array(
+        	'expected' => $attributeName,
+        	'result' => $object->getProperties()
+    	));
+	}
+
+	/**
+	 * Will mark the test true if $class has a static property $attributeName
+	 *
+	 * ~~~ php
+	 * $this->assertClassNotHasStaticAttribute('_methodFilters', '\lithium\core\StaticObject');
+	 * ~~~
+	 *
+	 * ~~~ php
+	 * $this->assertClassNotHasStaticAttribute('foobar', '\lithium\core\StaticObject')
+	 * ~~~
+	 * 
+	 * @param  string        $attributeName The attribute you wish to look for
+	 * @param  string|object $class         The class name or object
+	 * @param  string        $message       optional
+	 * @return bool
+	 */
+	public function assertClassNotHasStaticAttribute($attributeName, $class, $message = '{:message}') {
+        $object = new ReflectionClass($class);
+        if ($object->hasProperty($attributeName)) {
+            $attribute = $object->getProperty($attributeName);
+	        return $this->assert(!$attribute->isStatic(), $message, array(
+	        	'expected' => $attributeName,
+	        	'result' => $object->getProperties()
+	    	));
+        }
+        return $this->assert(true, $message, array(
+        	'expected' => $attributeName,
+        	'result' => $object->getProperties()
+    	));
+	}
+
 	// http://www.phpunit.de/manual/current/en/writing-tests-for-phpunit.html#writing-tests-for-phpunit.assertions.assertArrayHasKey
 
 }

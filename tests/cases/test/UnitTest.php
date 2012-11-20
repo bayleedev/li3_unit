@@ -119,4 +119,52 @@ class UnitTest extends \lithium\test\Unit {
 		), $result['data']);
 	}
 
+	public function testClassHasStaticAttributeTrue() {
+		$this->assertTrue($this->unit->assertClassHasStaticAttribute('_methodFilters', '\lithium\core\StaticObject'));
+	}
+
+	public function testClassHasStaticAttributeFalse() {
+		$this->assertFalse($this->unit->assertClassHasStaticAttribute('foobar', '\lithium\core\StaticObject'));
+	}
+
+	public function testClassHasStaticAttributeFalseResults() {
+		$this->assertFalse($this->unit->assertClassHasStaticAttribute('foobar', '\lithium\core\StaticObject'));
+		
+		$results = $this->unit->results();
+		$result = array_pop($results);
+		
+		$this->assertEqual('fail', $result['result']);
+		$this->assertEqual(array(
+			'expected' => 'foobar',
+			'result' => array(
+				new \ReflectionProperty('lithium\\core\\StaticObject', '_methodFilters'),
+				new \ReflectionProperty('lithium\\core\\StaticObject', '_parents')
+			)
+		), $result['data']);
+	}
+
+	public function testClassNotHasStaticAttributeTrue() {
+		$this->assertTrue($this->unit->assertClassNotHasStaticAttribute('foobar', '\lithium\core\StaticObject'));
+	}
+
+	public function testClassNotHasStaticAttributeFalse() {
+		$this->assertFalse($this->unit->assertClassNotHasStaticAttribute('_methodFilters', '\lithium\core\StaticObject'));
+	}
+
+	public function testClassNotHasStaticAttributeFalseResults() {
+		$this->assertFalse($this->unit->assertClassNotHasStaticAttribute('_methodFilters', '\lithium\core\StaticObject'));
+		
+		$results = $this->unit->results();
+		$result = array_pop($results);
+		
+		$this->assertEqual('fail', $result['result']);
+		$this->assertEqual(array(
+			'expected' => '_methodFilters',
+			'result' => array(
+				new \ReflectionProperty('lithium\\core\\StaticObject', '_methodFilters'),
+				new \ReflectionProperty('lithium\\core\\StaticObject', '_parents')
+			)
+		), $result['data']);
+	}
+
 }
