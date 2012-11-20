@@ -195,6 +195,14 @@ class UnitTest extends \lithium\test\Unit {
 		});
 	}
 
+	public function testAssertContainsStringInStrTrue() {
+		$this->assertTrue($this->unit->assertContains('foo', 'foobar'));
+	}
+
+	public function testAssertContainsStringInStrFalse() {
+		$this->assertFalse($this->unit->assertContains('baz', 'foobar'));
+	}
+
 	public function testAssertContainsTrue() {
 		$this->assertTrue($this->unit->assertContains('bar', array('foo', 'bar', 'baz')));
 	}
@@ -216,6 +224,14 @@ class UnitTest extends \lithium\test\Unit {
 				'foo', 'bar', 'baz'
 			)
 		), $result['data']);
+	}
+
+	public function testAssertNotContainsStringInStrTrue() {
+		$this->assertTrue($this->unit->assertNotContains('baz', 'foobar'));
+	}
+
+	public function testAssertNotContainsStringInStrFalse() {
+		$this->assertFalse($this->unit->assertNotContains('foo', 'foobar'));
 	}
 
 	public function testAssertNotContainsTrue() {

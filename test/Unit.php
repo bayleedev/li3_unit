@@ -197,10 +197,16 @@ abstract class Unit extends \lithium\test\Unit {
 	 * ~~~
 	 * 
 	 * @param  string $needle   The needle you are looking for
-	 * @param  mixed  $haystack An array or an iterable object
+	 * @param  mixed  $haystack An array, iterable object, or string
 	 * @param  string $message  optional
 	 */
 	public function assertContains($needle, $haystack, $message = '{:message}') {
+		if(is_string($haystack)) {
+			return $this->assert(strpos($haystack, $needle) !== false, $message, array(
+				'expected' => $needle,
+				'result' => $haystack
+			));
+		}
 		foreach($haystack as $key => $value) {
 			if($value === $needle) {
 				return $this->assert(true, $message, array(
@@ -227,10 +233,16 @@ abstract class Unit extends \lithium\test\Unit {
 	 * ~~~
 	 * 
 	 * @param  string $needle   The needle you are looking for
-	 * @param  mixed  $haystack An array or an iterable object
+	 * @param  mixed  $haystack An array, iterable object, or string
 	 * @param  string $message  optional
 	 */
 	public function assertNotContains($needle, $haystack, $message = '{:message}') {
+		if(is_string($haystack)) {
+			return $this->assert(strpos($haystack, $needle) === false, $message, array(
+				'expected' => $needle,
+				'result' => $haystack
+			));
+		}
 		foreach($haystack as $key => $value) {
 			if($value === $needle) {
 				return $this->assert(false, $message, array(
