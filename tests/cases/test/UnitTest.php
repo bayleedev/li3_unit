@@ -122,6 +122,13 @@ class UnitTest extends \lithium\test\Unit {
 		), $result['data']);
 	}
 
+	public function testClassHasAttributeWrongClassType() {
+		$self =& $this;
+		$this->assertException('InvalidArgumentException', function() use($self) {
+			$self->unit->assertClassHasAttribute('foo', new \stdClass);
+		});
+	}
+
 	public function testClassHasAttributeClassNotFound() {
 		$self =& $this;
 		$this->assertException('ReflectionException', function() use($self) {
@@ -157,6 +164,13 @@ class UnitTest extends \lithium\test\Unit {
 		$self =& $this;
 		$this->assertException('ReflectionException', function() use($self) {
 			$self->unit->assertClassNotHasAttribute('foo', '\foo\bar\baz');
+		});
+	}
+
+	public function testClassNotHasAttributeWrongClassType() {
+		$self =& $this;
+		$this->assertException('InvalidArgumentException', function() use($self) {
+			$self->unit->assertClassNotHasAttribute('foo', new \stdClass);
 		});
 	}
 

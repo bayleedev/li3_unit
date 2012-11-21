@@ -121,12 +121,17 @@ abstract class Unit extends \lithium\test\Unit {
 	 * $this->assertClassHasAttribute('__construct', '\ReflectionClass');
 	 * ~~~
 	 * 
-	 * @param  string        $attributeName The attribute you wish to look for
-	 * @param  string|object $class         The class name or object
-	 * @param  string        $message       optional
+	 * @throws InvalidArgumentException If $class is not an object
+	 * @throws ReflectionException      If the given class does not exist
+	 * @param  string $attributeName    The attribute you wish to look for
+	 * @param  string $class            The class name or object
+	 * @param  string $message          optional
 	 * @return bool
 	 */
 	public function assertClassHasAttribute($attributeName, $class, $message = '{:message}') {
+		if(!is_string($class)) {
+			throw new \InvalidArgumentException('Second argument $class must be a string. Type ' . gettype($class) . ' given');
+		}
 		$object = new ReflectionClass($class);
 		return $this->assert($object->hasProperty($attributeName), $message, array(
 			'expected' => $attributeName,
@@ -144,14 +149,18 @@ abstract class Unit extends \lithium\test\Unit {
 	 * ~~~ php
 	 * $this->assertClassNotHasAttribute('name', '\ReflectionClass');
 	 * ~~~
-	 * 
-	 * @throws ReflectionException If the given class does not exist
-	 * @param  string        $attributeName The attribute you wish to look for
-	 * @param  string|object $class         The class name or object
-	 * @param  string        $message       optional
+	 *
+	 * @throws InvalidArgumentException If $class is not an object
+	 * @throws ReflectionException      If the given class does not exist
+	 * @param  string $attributeName    The attribute you wish to look for
+	 * @param  string $class            The class name or object
+	 * @param  string $message          optional
 	 * @return bool
 	 */
 	public function assertClassNotHasAttribute($attributeName, $class, $message = '{:message}') {
+		if(!is_string($class)) {
+			throw new \InvalidArgumentException('Second argument $class must be a string. Type ' . gettype($class) . ' given');
+		}
 		$object = new ReflectionClass($class);
 		return $this->assert(!$object->hasProperty($attributeName), $message, array(
 			'expected' => $attributeName,
