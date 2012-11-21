@@ -407,6 +407,50 @@ abstract class Unit extends \lithium\test\Unit {
 		));
 	}
 
+	/**
+	 * Will mark the test true if $actual is empty
+	 * 
+	 * ~~~ php
+	 * $this->assertEmpty(1);
+	 * ~~~
+	 * 
+	 * ~~~ php
+	 * $this->assertEmpty(array());
+	 * ~~~
+	 * 
+	 * @param  string $actual   The variable to check
+	 * @param  string $message  optional
+	 * @return bool
+	 */
+	public function assertEmpty($actual, $message = '{:message}') {
+		return $this->assert(empty($actual), $message, array(
+			'expected' => $actual,
+			'result' => empty($actual)
+		));
+	}
+
+	/**
+	 * Will mark the test true if $actual is empty
+	 * 
+	 * ~~~ php
+	 * $this->assertEmpty(array());
+	 * ~~~
+	 * 
+	 * ~~~ php
+	 * $this->assertEmpty(1);
+	 * ~~~
+	 * 
+	 * @param  string $actual   The variable to check
+	 * @param  string $message  optional
+	 * @return bool
+	 */
+	public function assertNotEmpty($actual, $message = '{:message}') {
+		return $this->assert(!empty($actual), $message, array(
+			'expected' => $actual,
+			'result' => !empty($actual)
+		));
+	}
+
 	// http://www.phpunit.de/manual/current/en/writing-tests-for-phpunit.html#writing-tests-for-phpunit.assertions.assertArrayHasKey
 
 }

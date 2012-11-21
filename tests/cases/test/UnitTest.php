@@ -347,4 +347,46 @@ class UnitTest extends \lithium\test\Unit {
 		), $result['data']);
 	}
 
+	public function testAssertEmptyTrue() {
+		$this->assertTrue($this->unit->assertEmpty(array()));
+	}
+
+	public function testAssertEmptyFalse() {
+		$this->assertFalse($this->unit->assertEmpty(array(1)));
+	}
+
+	public function testAssertEmptyFalseResults() {
+		$this->unit->assertEmpty(array(1));
+
+		$results = $this->unit->results();
+		$result = array_pop($results);
+		
+		$this->assertEqual('fail', $result['result']);
+		$this->assertEqual(array(
+			'expected' => array(1),
+			'result' => false
+		), $result['data']);
+	}
+
+	public function testAssertNotEmptyTrue() {
+		$this->assertTrue($this->unit->assertNotEmpty(array(1)));
+	}
+
+	public function testAssertNotEmptyFalse() {
+		$this->assertFalse($this->unit->assertNotEmpty(array()));
+	}
+
+	public function testAssertNotEmptyFalseResults() {
+		$this->unit->assertNotEmpty(array());
+
+		$results = $this->unit->results();
+		$result = array_pop($results);
+		
+		$this->assertEqual('fail', $result['result']);
+		$this->assertEqual(array(
+			'expected' => array(),
+			'result' => false
+		), $result['data']);
+	}
+
 }
