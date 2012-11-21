@@ -739,4 +739,66 @@ class UnitTest extends \lithium\test\Unit {
 		), $result['data']);
 	}
 
+	public function testObjectHasAttributeTrue() {
+		$this->assertTrue($this->unit->assertObjectHasAttribute('name', new \ReflectionClass(new \stdClass)));
+		
+		$results = $this->unit->results();
+		$result = array_pop($results);
+		
+		$this->assertEqual('pass', $result['result']);
+	}
+
+	public function testObjectHasAttributeFalse() {
+		$this->assertFalse($this->unit->assertObjectHasAttribute('foo', new \ReflectionClass(new \stdClass)));
+		
+		$results = $this->unit->results();
+		$result = array_pop($results);
+		
+		$this->assertEqual('fail', $result['result']);
+		$this->assertEqual(array(
+			'expected' => 'foo',
+			'result' => array(
+				new \ReflectionProperty('ReflectionClass', 'name')
+			)
+		), $result['data']);
+	}
+
+	public function testObjectHasAttributeWrongClassType() {
+		$self =& $this;
+		$this->assertException('InvalidArgumentException', function() use($self) {
+			$self->unit->assertObjectHasAttribute('foo', '\stdClass');
+		});
+	}
+
+	public function testObjectNotHasAttributeTrue() {
+		$this->assertTrue($this->unit->assertObjectNotHasAttribute('foo', new \ReflectionClass(new \stdClass)));
+		
+		$results = $this->unit->results();
+		$result = array_pop($results);
+		
+		$this->assertEqual('pass', $result['result']);
+	}
+
+	public function testObjectNotHasAttributeFalse() {
+		$this->assertFalse($this->unit->assertObjectNotHasAttribute('name', new \ReflectionClass(new \stdClass)));
+		
+		$results = $this->unit->results();
+		$result = array_pop($results);
+		
+		$this->assertEqual('fail', $result['result']);
+		$this->assertEqual(array(
+			'expected' => 'name',
+			'result' => array(
+				new \ReflectionProperty('ReflectionClass', 'name')
+			)
+		), $result['data']);
+	}
+
+	public function testObjectNotHasAttributeWrongClassType() {
+		$self =& $this;
+		$this->assertException('InvalidArgumentException', function() use($self) {
+			$self->unit->assertObjectNotHasAttribute('foo', 'new \stdClass');
+		});
+	}
+
 }

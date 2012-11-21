@@ -740,6 +740,62 @@ abstract class Unit extends \lithium\test\Unit {
 		));
 	}
 
+	/**
+	 * Will mark the test true if $object has an attribute $attributeName
+	 *
+	 * ~~~ php
+	 * $this->assertObjectHasAttribute('name', '\ReflectionClass');
+	 * ~~~
+	 *
+	 * ~~~ php
+	 * $this->assertObjectHasAttribute('__construct', '\ReflectionClass');
+	 * ~~~
+	 *
+	 * @throws InvalidArgumentException If $object is not an object
+	 * @param  string $attributeName    The attribute you wish to look for
+	 * @param  string $object           The object to assert
+	 * @param  string $message          optional
+	 * @return bool
+	 */
+	public function assertObjectHasAttribute($attributeName, $object, $message = '{:message}') {
+		if(!is_object($object)) {
+			throw new \InvalidArgumentException('Second argument $object must be an object. Type ' . gettype($object) . ' given');
+		}
+		$object = new ReflectionClass($object);
+		return $this->assert($object->hasProperty($attributeName), $message, array(
+			'expected' => $attributeName,
+			'result' => $object->getProperties()
+		));
+	}
+
+	/**
+	 * Will mark the test true if $object has an attribute $attributeName
+	 *
+	 * ~~~ php
+	 * $this->assertObjectNotHasAttribute('__construct', '\ReflectionClass');
+	 * ~~~
+	 *
+	 * ~~~ php
+	 * $this->assertObjectNotHasAttribute('name', '\ReflectionClass');
+	 * ~~~
+	 *
+	 * @throws InvalidArgumentException If $object is not an object
+	 * @param  string $attributeName    The attribute you wish to look for
+	 * @param  string $object           The object to assert
+	 * @param  string $message          optional
+	 * @return bool
+	 */
+	public function assertObjectNotHasAttribute($attributeName, $object, $message = '{:message}') {
+		if(!is_object($object)) {
+			throw new \InvalidArgumentException('Second argument $object must be an object. Type ' . gettype($object) . ' given');
+		}
+		$object = new ReflectionClass($object);
+		return $this->assert(!$object->hasProperty($attributeName), $message, array(
+			'expected' => $attributeName,
+			'result' => $object->getProperties()
+		));
+	}
+
 	// http://www.phpunit.de/manual/current/en/writing-tests-for-phpunit.html#writing-tests-for-phpunit.assertions.assertArrayHasKey
 
 }
