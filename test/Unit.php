@@ -6,6 +6,25 @@ use ReflectionClass;
 
 abstract class Unit extends \lithium\test\Unit {
 
+
+	static protected $_internalTypes = array(
+		'array' => 'is_array',
+		'bool' => 'is_bool',
+		'callable' => 'is_callable',
+		'double' => 'is_double',
+		'float' => 'is_float',
+		'int' => 'is_int',
+		'integer' => 'is_integer',
+		'long' => 'is_long',
+		'null' => 'is_null',
+		'numeric' => 'is_numeric',
+		'object' => 'is_object',
+		'real' => 'is_real',
+		'resource' => 'is_resource',
+		'scalar' => 'is_scalar',
+		'string' => 'is_string'
+	);
+
 	/**
 	 * Will mark the test true if $count and count($arr) are equal
 	 *
@@ -296,24 +315,7 @@ abstract class Unit extends \lithium\test\Unit {
 	 * @return bool
 	 */
 	public function assertContainsOnly($type, $haystack, $message = '{:message}') {
-		$types = array(
-			'array' => 'is_array',
-			'bool' => 'is_bool',
-			'callable' => 'is_callable',
-			'double' => 'is_double',
-			'float' => 'is_float',
-			'int' => 'is_int',
-			'integer' => 'is_integer',
-			'long' => 'is_long',
-			'null' => 'is_null',
-			'numeric' => 'is_numeric',
-			'object' => 'is_object',
-			'real' => 'is_real',
-			'resource' => 'is_resource',
-			'scalar' => 'is_scalar',
-			'string' => 'is_string'
-		);
-		$method = $types[$type];
+		$method = self::$_internalTypes[$type];
 		foreach($haystack as $key => $value) {
 			if(!$method($value)) {
 				return $this->assert(false, $message, array(
@@ -345,24 +347,7 @@ abstract class Unit extends \lithium\test\Unit {
 	 * @return bool
 	 */
 	public function assertNotContainsOnly($type, $haystack, $message = '{:message}') {
-		$types = array(
-			'array' => 'is_array',
-			'bool' => 'is_bool',
-			'callable' => 'is_callable',
-			'double' => 'is_double',
-			'float' => 'is_float',
-			'int' => 'is_int',
-			'integer' => 'is_integer',
-			'long' => 'is_long',
-			'null' => 'is_null',
-			'numeric' => 'is_numeric',
-			'object' => 'is_object',
-			'real' => 'is_real',
-			'resource' => 'is_resource',
-			'scalar' => 'is_scalar',
-			'string' => 'is_string'
-		);
-		$method = $types[$type];
+		$method = self::$_internalTypes[$type];
 		foreach($haystack as $key => $value) {
 			if(!$method($value)) {
 				return $this->assert(true, $message, array(
