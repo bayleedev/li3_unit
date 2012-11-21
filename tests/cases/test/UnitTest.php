@@ -575,4 +575,46 @@ class UnitTest extends \lithium\test\Unit {
 		), $result['data']);
 	}
 
+	public function testAssertInstanceOfTrue() {
+		$this->assertTrue($this->unit->assertInstanceOf('\stdClass', new \stdClass));
+	}
+
+	public function testAssertInstanceOfFalse() {
+		$this->assertFalse($this->unit->assertInstanceOf('\ReflectionClass', new \stdClass));
+	}
+
+	public function testAssertInstanceOfFalseResults() {
+		$this->assertFalse($this->unit->assertInstanceOf('\ReflectionClass', new \stdClass));
+
+		$results = $this->unit->results();
+		$result = array_pop($results);
+
+		$this->assertEqual('fail', $result['result']);
+		$this->assertEqual(array(
+			'expected' => '\ReflectionClass',
+			'result' => 'stdClass'
+		), $result['data']);
+	}
+
+	public function testAssertNotInstanceOfTrue() {
+		$this->assertTrue($this->unit->assertNotInstanceOf('\ReflectionClass', new \stdClass));
+	}
+
+	public function testAssertNotInstanceOfFalse() {
+		$this->assertFalse($this->unit->assertNotInstanceOf('\stdClass', new \stdClass));
+	}
+
+	public function testAssertNotInstanceOfFalseResults() {
+		$this->assertFalse($this->unit->assertNotInstanceOf('\stdClass', new \stdClass));
+
+		$results = $this->unit->results();
+		$result = array_pop($results);
+
+		$this->assertEqual('fail', $result['result']);
+		$this->assertEqual(array(
+			'expected' => '\stdClass',
+			'result' => 'stdClass'
+		), $result['data']);
+	}
+
 }

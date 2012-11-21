@@ -631,6 +631,52 @@ abstract class Unit extends \lithium\test\Unit {
 		));
 	}
 
+	/**
+	 * Will mark the test true if $actual is a $expected
+	 *
+	 * ~~~ php
+	 * $this->assertInstanceOf('stdClass', new stdClass);
+	 * ~~~
+	 *
+	 * ~~~ php
+	 * $this->assertInstanceOf('ReflectionClass', new stdClass);
+	 * ~~~
+	 * 
+	 * @param  string $expected The fully namespaced expected class
+	 * @param  object $actual   The object you are testing
+	 * @param  string $message  optional
+	 * @return bool
+	 */
+	public function assertInstanceOf($expected, $actual, $message = '{:message}') {
+		return $this->assert(is_a($actual, $expected), $message, array(
+			'expected' => $expected,
+			'result' => get_class($actual)
+		));
+	}
+
+	/**
+	 * Will mark the test true if $actual is not a $expected
+	 *
+	 * ~~~ php
+	 * $this->assertNotInstanceOf('ReflectionClass', new stdClass);
+	 * ~~~
+	 *
+	 * ~~~ php
+	 * $this->assertNotInstanceOf('stdClass', new stdClass);
+	 * ~~~
+	 * 
+	 * @param  string $expected The fully namespaced expected class
+	 * @param  object $actual   The object you are testing
+	 * @param  string $message  optional
+	 * @return bool
+	 */
+	public function assertNotInstanceOf($expected, $actual, $message = '{:message}') {
+		return $this->assert(!is_a($actual, $expected), $message, array(
+			'expected' => $expected,
+			'result' => get_class($actual)
+		));
+	}
+
 	// http://www.phpunit.de/manual/current/en/writing-tests-for-phpunit.html#writing-tests-for-phpunit.assertions.assertArrayHasKey
 
 }
