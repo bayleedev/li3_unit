@@ -539,6 +539,98 @@ abstract class Unit extends \lithium\test\Unit {
 		));
 	}
 
+	/**
+	 * Will mark the test true if $expected > $actual
+	 *
+	 * ~~~ php
+	 * $this->assertGreaterThan(5, 3);
+	 * ~~~
+	 * 
+	 * ~~~ php
+	 * $this->assertGreaterThan(3, 5);
+	 * ~~~
+	 * 
+	 * @param  float|int $expected
+	 * @param  float|int $actual
+	 * @param  string    $message  optional
+	 * @return bool
+	 */
+	public function assertGreaterThan($expected, $actual, $message = '{:message}') {
+		return $this->assert($expected > $actual, $message, array(
+			'expected' => $expected,
+			'result' => $actual
+		));
+	}
+
+	/**
+	 * Will mark the test true if $expected >= $actual
+	 *
+	 * ~~~ php
+	 * $this->assertGreaterThanOrEqual(5, 5);
+	 * ~~~
+	 * 
+	 * ~~~ php
+	 * $this->assertGreaterThanOrEqual(3, 5);
+	 * ~~~
+	 * 
+	 * @param  float|int $expected
+	 * @param  float|int $actual
+	 * @param  string    $message  optional
+	 * @return bool
+	 */
+	public function assertGreaterThanOrEqual($expected, $actual, $message = '{:message}') {
+		return $this->assert($expected >= $actual, $message, array(
+			'expected' => $expected,
+			'result' => $actual
+		));
+	}
+
+	/**
+	 * Will mark the test true if $expected < $actual
+	 *
+	 * ~~~ php
+	 * $this->assertGreaterThanOrEqual(3, 5);
+	 * ~~~
+	 * 
+	 * ~~~ php
+	 * $this->assertGreaterThanOrEqual(5, 3);
+	 * ~~~
+	 * 
+	 * @param  float|int $expected
+	 * @param  float|int $actual
+	 * @param  string    $message  optional
+	 * @return bool
+	 */
+	public function assertLessThan($expected, $actual, $message = '{:message}') {
+		return $this->assert($expected < $actual, $message, array(
+			'expected' => $expected,
+			'result' => $actual
+		));
+	}
+
+	/**
+	 * Will mark the test true if $expected <= $actual
+	 *
+	 * ~~~ php
+	 * $this->assertGreaterThanOrEqual(5, 5);
+	 * ~~~
+	 * 
+	 * ~~~ php
+	 * $this->assertGreaterThanOrEqual(5, 3);
+	 * ~~~
+	 * 
+	 * @param  float|int $expected
+	 * @param  float|int $actual
+	 * @param  string    $message  optional
+	 * @return bool
+	 */
+	public function assertLessThanOrEqual($expected, $actual, $message = '{:message}') {
+		return $this->assert($expected <= $actual, $message, array(
+			'expected' => $expected,
+			'result' => $actual
+		));
+	}
+
 	// http://www.phpunit.de/manual/current/en/writing-tests-for-phpunit.html#writing-tests-for-phpunit.assertions.assertArrayHasKey
 
 }

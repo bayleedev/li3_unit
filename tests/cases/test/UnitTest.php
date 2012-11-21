@@ -491,4 +491,88 @@ class UnitTest extends \lithium\test\Unit {
 		), $result['data']);
 	}
 
+	public function testAssertGreaterThanTrue() {
+		$this->assertTrue($this->unit->assertGreaterThan(5, 3));
+	}
+
+	public function testAssertGreaterThanFalse() {
+		$this->assertFalse($this->unit->assertGreaterThan(3, 5));
+	}
+
+	public function testAssertGreaterThanFalseResults() {
+		$this->unit->assertGreaterThan(3, 5);
+
+		$results = $this->unit->results();
+		$result = array_pop($results);
+
+		$this->assertEqual('fail', $result['result']);
+		$this->assertEqual(array(
+			'expected' => 3,
+			'result' => 5
+		), $result['data']);
+	}
+
+	public function testAssertGreaterThanOrEqualTrue() {
+		$this->assertTrue($this->unit->assertGreaterThanOrEqual(5, 5));
+	}
+
+	public function testAssertGreaterThanOrEqualFalse() {
+		$this->assertFalse($this->unit->assertGreaterThanOrEqual(3, 5));
+	}
+
+	public function testAssertGreaterThanOrEqualFalseResults() {
+		$this->unit->assertGreaterThanOrEqual(3, 5);
+
+		$results = $this->unit->results();
+		$result = array_pop($results);
+
+		$this->assertEqual('fail', $result['result']);
+		$this->assertEqual(array(
+			'expected' => 3,
+			'result' => 5
+		), $result['data']);
+	}
+
+	public function testAssertLessThanTrue() {
+		$this->assertTrue($this->unit->assertLessThan(3, 5));
+	}
+
+	public function testAssertLessThanFalse() {
+		$this->assertFalse($this->unit->assertLessThan(5, 3));
+	}
+
+	public function testAssertLessThanFalseResults() {
+		$this->unit->assertLessThan(5, 3);
+
+		$results = $this->unit->results();
+		$result = array_pop($results);
+
+		$this->assertEqual('fail', $result['result']);
+		$this->assertEqual(array(
+			'expected' => 5,
+			'result' => 3
+		), $result['data']);
+	}
+
+	public function testAssertLessThanOrEqualTrue() {
+		$this->assertTrue($this->unit->assertLessThanOrEqual(5, 5));
+	}
+
+	public function testAssertLessThanOrEqualFalse() {
+		$this->assertFalse($this->unit->assertLessThanOrEqual(5, 3));
+	}
+
+	public function testAssertLessThanOrEqualFalseResults() {
+		$this->unit->assertLessThanOrEqual(5, 3);
+
+		$results = $this->unit->results();
+		$result = array_pop($results);
+
+		$this->assertEqual('fail', $result['result']);
+		$this->assertEqual(array(
+			'expected' => 5,
+			'result' => 3
+		), $result['data']);
+	}
+
 }
