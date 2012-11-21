@@ -6,6 +6,10 @@ use ReflectionClass;
 
 abstract class Unit extends \lithium\test\Unit {
 
+	/**
+	 * The internal types and how to test for them
+	 * @var array
+	 */
 	static protected $_internalTypes = array(
 		'array' => 'is_array',
 		'bool' => 'is_bool',
@@ -23,6 +27,12 @@ abstract class Unit extends \lithium\test\Unit {
 		'scalar' => 'is_scalar',
 		'string' => 'is_string'
 	);
+
+	/**
+	 * The unit object we are testing against
+	 * @var object
+	 */
+	protected $unit;
 
 	/**
 	 * Will mark the test true if $count and count($arr) are equal
