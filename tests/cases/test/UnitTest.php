@@ -659,4 +659,48 @@ class UnitTest extends \lithium\test\Unit {
 		), $result['data']);
 	}
 
+	public function testAssertInternalTypeTrue() {
+		$this->assertTrue($this->unit->assertInternalType('string', 'foobar'));
+		
+		$results = $this->unit->results();
+		$result = array_pop($results);
+		
+		$this->assertEqual('pass', $result['result']);
+	}
+
+	public function testAssertInternalTypeFalse() {
+		$this->assertFalse($this->unit->assertInternalType('int', 'foobar'));
+
+		$results = $this->unit->results();
+		$result = array_pop($results);
+
+		$this->assertEqual('fail', $result['result']);
+		$this->assertEqual(array(
+			'expected' => 'int',
+			'result' => 'string'
+		), $result['data']);
+	}
+
+	public function testAssertNotInternalTypeTrue() {
+		$this->assertTrue($this->unit->assertNotInternalType('int', 'foobar'));
+		
+		$results = $this->unit->results();
+		$result = array_pop($results);
+		
+		$this->assertEqual('pass', $result['result']);
+	}
+
+	public function testAssertNotInternalTypeFalse() {
+		$this->assertFalse($this->unit->assertNotInternalType('string', 'foobar'));
+
+		$results = $this->unit->results();
+		$result = array_pop($results);
+
+		$this->assertEqual('fail', $result['result']);
+		$this->assertEqual(array(
+			'expected' => 'string',
+			'result' => 'string'
+		), $result['data']);
+	}
+
 }

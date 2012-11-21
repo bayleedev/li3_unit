@@ -6,7 +6,6 @@ use ReflectionClass;
 
 abstract class Unit extends \lithium\test\Unit {
 
-
 	static protected $_internalTypes = array(
 		'array' => 'is_array',
 		'bool' => 'is_bool',
@@ -659,6 +658,54 @@ abstract class Unit extends \lithium\test\Unit {
 		return $this->assert(!is_a($actual, $expected), $message, array(
 			'expected' => $expected,
 			'result' => get_class($actual)
+		));
+	}
+
+	/**
+	 * Will mark the test true if $actual if of type $expected
+	 *
+	 * ~~~ php
+	 * $this->assertInternalType('string', 'foobar');
+	 * ~~~
+	 *
+	 * ~~~ php
+	 * $this->assertInternalType('int', 'foobar');
+	 * ~~~
+	 * 
+	 * @param  string $expected The internal data type: array|bool|callable|double|float|int|integer|long|null|numeric|object|real|resource|scalar|string
+	 * @param  object $actual   The object you are testing
+	 * @param  string $message  optional
+	 * @return bool
+	 */
+	public function assertInternalType($expected, $actual, $message = '{:message}') {
+		$method = self::$_internalTypes[$expected];
+		return $this->assert($method($actual), $message, array(
+			'expected' => $expected,
+			'result' => gettype($actual)
+		));
+	}
+
+	/**
+	 * Will mark the test true if $actual if not of type $expected
+	 *
+	 * ~~~ php
+	 * $this->assertInternalType('int', 'foobar');
+	 * ~~~
+	 *
+	 * ~~~ php
+	 * $this->assertInternalType('string', 'foobar');
+	 * ~~~
+	 * 
+	 * @param  string $expected The internal data type: array|bool|callable|double|float|int|integer|long|null|numeric|object|real|resource|scalar|string
+	 * @param  object $actual   The object you are testing
+	 * @param  string $message  optional
+	 * @return bool
+	 */
+	public function assertNotInternalType($expected, $actual, $message = '{:message}') {
+		$method = self::$_internalTypes[$expected];
+		return $this->assert(!$method($actual), $message, array(
+			'expected' => $expected,
+			'result' => gettype($actual)
 		));
 	}
 
