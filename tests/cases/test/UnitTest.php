@@ -301,6 +301,29 @@ class UnitTest extends \lithium\test\Unit {
 				1,2,3
 			)
 		), $result['data']);
-	}	
+	}
+
+	public function testAssertContainsOnlyInstanceOfTrue() {
+		$this->assertTrue($this->unit->assertContainsOnlyInstancesOf('stdClass', array(new \stdClass)));
+	}
+
+	public function testAssertContainsOnlyInstanceOfFalse() {
+		$this->assertFalse($this->unit->assertContainsOnlyInstancesOf('stdClass', array(new \lithium\test\Unit)));
+	}
+
+	public function testAssertContainsOnlyInstanceOfFalseResults() {
+		$this->assertFalse($this->unit->assertContainsOnlyInstancesOf('stdClass', array(new \lithium\test\Unit)));
+
+		$results = $this->unit->results();
+		$result = array_pop($results);
+		
+		$this->assertEqual('fail', $result['result']);
+		$this->assertEqual(array(
+			'expected' => 'stdClass',
+			'result' => array(
+				0 => new \lithium\test\Unit
+			)
+		), $result['data']);
+	}
 
 }

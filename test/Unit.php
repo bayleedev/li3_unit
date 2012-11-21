@@ -357,6 +357,36 @@ abstract class Unit extends \lithium\test\Unit {
 		));
 	}
 
+	/**
+	 * Will mark the test true if $haystack contains only items of $type
+	 * 
+	 * ~~~ php
+	 * $this->assertContainsOnlyInstancesOf('stdClass', array(new \stdClass));
+	 * ~~~
+	 * 
+	 * ~~~ php
+	 * $this->assertContainsOnlyInstancesOf('stdClass', array(new \lithium\test\Unit));
+	 * ~~~
+	 * 
+	 * @param  string $class    The fully namespaced class name
+	 * @param  mixed  $haystack An array or iterable object
+	 * @param  string $message  optional
+	 * @return bool
+	 */
+	public function assertContainsOnlyInstancesOf($class, $haystack, $message = '{:message}') {
+		$result = array();
+		foreach($haystack as $key => &$value) {
+			if(!is_a($value, $class)) {
+				$result[$key] =& $value;
+				break;
+			}
+		}
+		return $this->assert(empty($result), $message, array(
+			'expected' => $class,
+			'result' => $result
+		));
+	}
+
 	// http://www.phpunit.de/manual/current/en/writing-tests-for-phpunit.html#writing-tests-for-phpunit.assertions.assertArrayHasKey
 
 }
