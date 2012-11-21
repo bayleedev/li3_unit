@@ -31,6 +31,27 @@ class UnitTest extends \lithium\test\Unit {
 		), $result['data']);
 	}
 
+	public function testAssertNotCountTrue() {
+		$this->assertTrue($this->unit->assertNotCount(2, array('foo', 'bar', 'bar')));
+	}
+
+	public function testAssertNotCountFalse() {
+		$this->assertFalse($this->unit->assertNotCount(1, array('foo')));
+	}
+
+	public function testAssertNotCountFalseResults() {
+		$this->unit->assertNotCount(1, array('foo'));
+		
+		$results = $this->unit->results();
+		$result = array_pop($results);
+		
+		$this->assertEqual('fail', $result['result']);
+		$this->assertIdentical(array(
+			'expected' => 1,
+			'result' => 1
+		), $result['data']);
+	}
+
 	public function testArrayHasKeyTrue() {
 		$this->assertTrue($this->unit->assertArrayHasKey('bar', array('bar' => 'baz')));
 	}

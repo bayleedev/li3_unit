@@ -27,6 +27,26 @@ abstract class Unit extends \lithium\test\Unit {
 	}
 
 	/**
+	 * Will mark the test true if $count and count($arr) are equal
+	 * 
+	 * ~~~ php
+	 * $this->assertCount(2, array('foo', 'bar', 'bar')); 
+	 * ~~~
+	 *
+	 * ~~~ php
+	 * $this->assertCount(1, array('foo'));
+	 * ~~~
+	 * 
+	 * @param  int    $expected Expected count
+	 * @param  array  $array    Result
+	 * @param  string $message  optional
+	 * @return bool
+	 */
+	public function assertNotCount($expected, $array, $message = '{:message}') {
+		return $this->assert($expected !== ($result = count($array)), $message, compact('expected', 'result'));
+	}
+
+	/**
 	 * Will mark the test true if $array has key $expected
 	 *
 	 * ~~~ php
