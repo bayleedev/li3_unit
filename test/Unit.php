@@ -27,7 +27,7 @@ abstract class Unit extends \lithium\test\Unit {
 	}
 
 	/**
-	 * Will mark the test true if $count and count($arr) are equal
+	 * Will mark the test true if $count and count($arr) are not equal
 	 * 
 	 * ~~~ php
 	 * $this->assertCount(2, array('foo', 'bar', 'bar')); 
@@ -70,7 +70,7 @@ abstract class Unit extends \lithium\test\Unit {
 	}
 
 	/**
-	 * Will mark the test true if $array has key $expected
+	 * Will mark the test true if $array does not have key $expected
 	 *
 	 * ~~~ php
 	 * $this->assertArrayNotHasKey('foo', array('bar' => 'baz'));
@@ -174,7 +174,7 @@ abstract class Unit extends \lithium\test\Unit {
 	}
 
 	/**
-	 * Will mark the test true if $class has a static property $attributeName
+	 * Will mark the test true if $class does not have a static property $attributeName
 	 *
 	 * ~~~ php
 	 * $this->assertClassNotHasStaticAttribute('_methodFilters', '\lithium\core\StaticObject');
@@ -243,7 +243,7 @@ abstract class Unit extends \lithium\test\Unit {
 	}
 
 	/**
-	 * Will mark the test true if $haystack contains $needle as a value
+	 * Will mark the test true if $haystack does not contain $needle as a value
 	 * 
 	 * ~~~ php
 	 * $this->assertNotContains(4, array(1,2,3));
@@ -329,7 +329,7 @@ abstract class Unit extends \lithium\test\Unit {
 	}
 
 	/**
-	 * Will mark the test true if $haystack contains only items of $type
+	 * Will mark the test true if $haystack does not have any of $type
 	 * 
 	 * ~~~ php
 	 * $this->assertNotContainsOnly('int', array('foo', 'bar', 'baz'));
@@ -430,7 +430,7 @@ abstract class Unit extends \lithium\test\Unit {
 	}
 
 	/**
-	 * Will mark the test true if $actual is empty
+	 * Will mark the test true if $actual is not empty
 	 * 
 	 * ~~~ php
 	 * $this->assertNotEmpty(array());
@@ -474,7 +474,7 @@ abstract class Unit extends \lithium\test\Unit {
 	}
 
 	/**
-	 * Will mark the test true if the contents of $expected are equal to the contents of $actual
+	 * Will mark the test true if the contents of $expected are not equal to the contents of $actual
 	 *
 	 * ~~~ php
 	 * $this->assertFileNotEquals(LITHIUM_APP_PATH . '/tests/mocks/md/file_1.md', LITHIUM_APP_PATH . '/tests/mocks/md/file_2.md');
@@ -518,7 +518,7 @@ abstract class Unit extends \lithium\test\Unit {
 	}
 
 	/**
-	 * Will mark the test true if the file $actual exists
+	 * Will mark the test true if the file $actual does not exist
 	 * 
 	 * ~~~ php
 	 * $this->assertFileExists(LITHIUM_APP_PATH . '/does/not/exist.txt');
