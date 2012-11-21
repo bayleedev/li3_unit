@@ -703,4 +703,26 @@ class UnitTest extends \lithium\test\Unit {
 		), $result['data']);
 	}
 
+	public function testAssertNotNullTrue() {
+		$this->assertTrue($this->unit->assertNotNull(1));
+		
+		$results = $this->unit->results();
+		$result = array_pop($results);
+		
+		$this->assertEqual('pass', $result['result']);
+	}
+
+	public function testAssertNotNullFalse() {
+		$this->assertFalse($this->unit->assertNotNull(null));
+
+		$results = $this->unit->results();
+		$result = array_pop($results);
+
+		$this->assertEqual('fail', $result['result']);
+		$this->assertEqual(array(
+			'expected' => NULL,
+			'actual' => 'NULL',
+		), $result['data']);
+	}
+
 }

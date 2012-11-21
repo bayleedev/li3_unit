@@ -709,6 +709,28 @@ abstract class Unit extends \lithium\test\Unit {
 		));
 	}
 
+	/**
+	 * Will mark the test as true if $actual is not null
+	 * 
+	 * ~~~ php
+	 * $this->assertNotNull(1);
+	 * ~~~
+	 *
+	 * ~~~ php
+	 * $this->assertNotNull(null);
+	 * ~~~
+	 * 
+	 * @param  object $actual   The variable you are testing
+	 * @param  string $message  optional
+	 * @return bool
+	 */
+	public function assertNotNull($actual, $message = '{:message}') {
+		return $this->assert(!is_null($actual), $message, array(
+			'expected' => null,
+			'actual' => gettype($actual)
+		));
+	}
+
 	// http://www.phpunit.de/manual/current/en/writing-tests-for-phpunit.html#writing-tests-for-phpunit.assertions.assertArrayHasKey
 
 }
