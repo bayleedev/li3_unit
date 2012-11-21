@@ -801,6 +801,52 @@ abstract class Unit extends \lithium\test\Unit {
 		));
 	}
 
+	/**
+	 * Will mark the test true if $actual matches $expected using preg_match
+	 *
+	 * ~~~ php
+	 * $this->assertRegExp('/^foo/', 'foobar');
+	 * ~~~
+	 *
+	 * ~~~ php
+	 * $this->assertRegExp('/^foobar/', 'bar');
+	 * ~~~
+	 * 
+	 * @param  string $expected A regex to match against $actual
+	 * @param  string $actual   The string to be matched upon
+	 * @param  string $message  optional
+	 * @return bool
+	 */
+	public function assertRegExp($expected, $actual, $message = '{:message}') {
+		return $this->assert(preg_match($expected, $actual, $matches) === 1, $message, array(
+			'expected' => $expected,
+			'result' => $matches
+		));
+	}
+
+	/**
+	 * Will mark the test true if $actual does not match $expected using preg_match
+	 *
+	 * ~~~ php
+	 * $this->assertNotRegExp('/^foobar/', 'bar');
+	 * ~~~
+	 *
+	 * ~~~ php
+	 * $this->assertNotRegExp('/^foo/', 'foobar');
+	 * ~~~
+	 * 
+	 * @param  string $expected A regex to match against $actual
+	 * @param  string $actual   The string to be matched upon
+	 * @param  string $message  optional
+	 * @return bool
+	 */
+	public function assertNotRegExp($expected, $actual, $message = '{:message}') {
+		return $this->assert(preg_match($expected, $actual, $matches) === 0, $message, array(
+			'expected' => $expected,
+			'result' => $matches
+		));
+	}
+
 	// http://www.phpunit.de/manual/current/en/writing-tests-for-phpunit.html#writing-tests-for-phpunit.assertions.assertArrayHasKey
 
 }

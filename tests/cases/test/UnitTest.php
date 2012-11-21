@@ -801,4 +801,48 @@ class UnitTest extends \lithium\test\Unit {
 		});
 	}
 
+	public function testAssertRegExpTrue() {
+		$this->assertTrue($this->unit->assertRegExp('/^foo/', 'foobar'));
+		
+		$results = $this->unit->results();
+		$result = array_pop($results);
+		
+		$this->assertEqual('pass', $result['result']);
+	}
+
+	public function testAssertRegExpFalse() {
+		$this->assertFalse($this->unit->assertRegExp('/^bar/', 'foobar'));
+		
+		$results = $this->unit->results();
+		$result = array_pop($results);
+		
+		$this->assertEqual('fail', $result['result']);
+		$this->assertEqual(array(
+			'expected' => '/^bar/',
+			'result' => array()
+		), $result['data']);
+	}
+
+	public function testAssertNotRegExpTrue() {
+		$this->assertTrue($this->unit->assertNotRegExp('/^bar/', 'foobar'));
+		
+		$results = $this->unit->results();
+		$result = array_pop($results);
+		
+		$this->assertEqual('pass', $result['result']);
+	}
+
+	public function testAssertNotRegExpFalse() {
+		$this->assertFalse($this->unit->assertNotRegExp('/^foo/', 'foobar'));
+		
+		$results = $this->unit->results();
+		$result = array_pop($results);
+		
+		$this->assertEqual('fail', $result['result']);
+		$this->assertEqual(array(
+			'expected' => '/^foo/',
+			'result' => array('foo')
+		), $result['data']);
+	}
+
 }
