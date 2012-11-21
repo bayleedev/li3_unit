@@ -389,4 +389,58 @@ class UnitTest extends \lithium\test\Unit {
 		), $result['data']);
 	}
 
+	public function testAssertFileEqualsTrue() {
+		$file1 = LITHIUM_APP_PATH . '/tests/mocks/md/file_1.md';
+		$file2 = LITHIUM_APP_PATH . '/tests/mocks/md/file_1.md.copy';
+		$this->assertTrue($this->unit->assertFileEquals($file1, $file2));
+	}
+
+	public function testAssertFileEqualsFalse() {
+		$file1 = LITHIUM_APP_PATH . '/tests/mocks/md/file_1.md';
+		$file2 = LITHIUM_APP_PATH . '/tests/mocks/md/file_2.md';
+		$this->assertFalse($this->unit->assertFileEquals($file1, $file2));
+	}
+
+	public function testAssertFileEqualsFalseResults() {
+		$file1 = LITHIUM_APP_PATH . '/tests/mocks/md/file_1.md';
+		$file2 = LITHIUM_APP_PATH . '/tests/mocks/md/file_2.md';
+		$this->unit->assertFileEquals($file1, $file2);
+
+		$results = $this->unit->results();
+		$result = array_pop($results);
+		
+		$this->assertEqual('fail', $result['result']);
+		$this->assertEqual(array(
+			'expected' => md5_file($file1),
+			'result' => md5_file($file2)
+		), $result['data']);
+	}
+
+	public function testAssertFileNotEqualsTrue() {
+		$file1 = LITHIUM_APP_PATH . '/tests/mocks/md/file_1.md';
+		$file2 = LITHIUM_APP_PATH . '/tests/mocks/md/file_2.md';
+		$this->assertTrue($this->unit->assertFileNotEquals($file1, $file2));
+	}
+
+	public function testAssertFileNotEqualsFalse() {
+		$file1 = LITHIUM_APP_PATH . '/tests/mocks/md/file_1.md';
+		$file2 = LITHIUM_APP_PATH . '/tests/mocks/md/file_1.md.copy';
+		$this->assertFalse($this->unit->assertFileNotEquals($file1, $file2));
+	}
+
+	public function testAssertFileNotEqualsFalseResults() {
+		$file1 = LITHIUM_APP_PATH . '/tests/mocks/md/file_1.md';
+		$file2 = LITHIUM_APP_PATH . '/tests/mocks/md/file_1.md.copy';
+		$this->assertFalse($this->unit->assertFileNotEquals($file1, $file2));
+
+		$results = $this->unit->results();
+		$result = array_pop($results);
+		
+		$this->assertEqual('fail', $result['result']);
+		$this->assertEqual(array(
+			'expected' => md5_file($file1),
+			'result' => md5_file($file2)
+		), $result['data']);
+	}
+
 }

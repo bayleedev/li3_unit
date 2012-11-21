@@ -451,6 +451,50 @@ abstract class Unit extends \lithium\test\Unit {
 		));
 	}
 
+	/**
+	 * Will mark the test true if the contents of $expected are equal to the contents of $actual
+	 *
+	 * ~~~ php
+	 * $this->assertFileEquals(LITHIUM_APP_PATH . '/tests/mocks/md/file_1.md', LITHIUM_APP_PATH . '/tests/mocks/md/file_1.md.copy');
+	 * ~~~
+	 *
+	 * ~~~ php
+	 * $this->assertFileEquals(LITHIUM_APP_PATH . '/tests/mocks/md/file_1.md', LITHIUM_APP_PATH . '/tests/mocks/md/file_2.md');
+	 * ~~~
+	 * 
+	 * @param  string $expected The path to the expected file
+	 * @param  string $actual   The path to the actual file
+	 * @param  string $message  optional
+	 * @return bool
+	 */
+	public function assertFileEquals($expected, $actual, $message = '{:message}') {
+		$expected = md5_file($expected);
+		$result = md5_file($actual);
+		return $this->assert($expected === $result, $message, compact('expected', 'result'));
+	}
+
+	/**
+	 * Will mark the test true if the contents of $expected are equal to the contents of $actual
+	 *
+	 * ~~~ php
+	 * $this->assertFileNotEquals(LITHIUM_APP_PATH . '/tests/mocks/md/file_1.md', LITHIUM_APP_PATH . '/tests/mocks/md/file_2.md');
+	 * ~~~
+	 *
+	 * ~~~ php
+	 * $this->assertFileNotEquals(LITHIUM_APP_PATH . '/tests/mocks/md/file_1.md', LITHIUM_APP_PATH . '/tests/mocks/md/file_1.md.copy');
+	 * ~~~
+	 * 
+	 * @param  string $expected The path to the expected file
+	 * @param  string $actual   The path to the actual file
+	 * @param  string $message  optional
+	 * @return bool
+	 */
+	public function assertFileNotEquals($expected, $actual, $message = '{:message}') {
+		$expected = md5_file($expected);
+		$result = md5_file($actual);
+		return $this->assert($expected !== $result, $message, compact('expected', 'result'));
+	}
+
 	// http://www.phpunit.de/manual/current/en/writing-tests-for-phpunit.html#writing-tests-for-phpunit.assertions.assertArrayHasKey
 
 }
