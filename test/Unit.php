@@ -495,6 +495,50 @@ abstract class Unit extends \lithium\test\Unit {
 		return $this->assert($expected !== $result, $message, compact('expected', 'result'));
 	}
 
+	/**
+	 * Will mark the test true if the file $actual exists
+	 *
+	 * ~~~ php
+	 * $this->assertFileExists(LITHIUM_APP_PATH . '/readme.md');
+	 * ~~~
+	 * 
+	 * ~~~ php
+	 * $this->assertFileExists(LITHIUM_APP_PATH . '/does/not/exist.txt');
+	 * ~~~
+	 * 
+	 * @param  string $actual  The path to the file you are asserting
+	 * @param  string $message  optional
+	 * @return bool
+	 */
+	public function assertFileExists($actual, $message = '{:message}') {
+		return $this->assert(file_exists($actual), $message, array(
+			'expected' => $actual,
+			'result' => file_exists($actual)
+		));
+	}
+
+	/**
+	 * Will mark the test true if the file $actual exists
+	 * 
+	 * ~~~ php
+	 * $this->assertFileExists(LITHIUM_APP_PATH . '/does/not/exist.txt');
+	 * ~~~
+	 *
+	 * ~~~ php
+	 * $this->assertFileExists(LITHIUM_APP_PATH . '/readme.md');
+	 * ~~~
+	 * 
+	 * @param  string $actual  The path to the file you are asserting
+	 * @param  string $message  optional
+	 * @return bool
+	 */
+	public function assertFileNotExists($actual, $message = '{:message}') {
+		return $this->assert(!file_exists($actual), $message, array(
+			'expected' => $actual,
+			'result' => !file_exists($actual)
+		));
+	}
+
 	// http://www.phpunit.de/manual/current/en/writing-tests-for-phpunit.html#writing-tests-for-phpunit.assertions.assertArrayHasKey
 
 }

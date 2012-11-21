@@ -443,4 +443,52 @@ class UnitTest extends \lithium\test\Unit {
 		), $result['data']);
 	}
 
+	public function testAssertFileExistsTrue() {
+		$file1 = LITHIUM_APP_PATH . '/readme.md';
+		$this->assertTrue($this->unit->assertFileExists($file1));
+	}
+
+	public function testAssertFileExistsFalse() {
+		$file1 = LITHIUM_APP_PATH . '/does/not/exist.txt';
+		$this->assertFalse($this->unit->assertFileExists($file1));
+	}
+
+	public function testAssertFileExistsFalseResults() {
+		$file1 = LITHIUM_APP_PATH . '/does/not/exist.txt';
+		$this->assertFalse($this->unit->assertFileExists($file1));
+
+		$results = $this->unit->results();
+		$result = array_pop($results);
+		
+		$this->assertEqual('fail', $result['result']);
+		$this->assertEqual(array(
+			'expected' => LITHIUM_APP_PATH . '/does/not/exist.txt',
+			'result' => false
+		), $result['data']);
+	}
+
+	public function testAssertFileNotExistsTrue() {
+		$file1 = LITHIUM_APP_PATH . '/does/not/exist.txt';
+		$this->assertTrue($this->unit->assertFileNotExists($file1));
+	}
+
+	public function testAssertFileNotExistsFalse() {
+		$file1 = LITHIUM_APP_PATH . '/readme.md';
+		$this->assertFalse($this->unit->assertFileNotExists($file1));
+	}
+
+	public function testAssertFileNotExistsFalseResults() {
+		$file1 = LITHIUM_APP_PATH . '/readme.md';
+		$this->assertFalse($this->unit->assertFileNotExists($file1));
+
+		$results = $this->unit->results();
+		$result = array_pop($results);
+		
+		$this->assertEqual('fail', $result['result']);
+		$this->assertEqual(array(
+			'expected' => LITHIUM_APP_PATH . '/readme.md',
+			'result' => false
+		), $result['data']);
+	}
+
 }
