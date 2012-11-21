@@ -433,11 +433,11 @@ abstract class Unit extends \lithium\test\Unit {
 	 * Will mark the test true if $actual is empty
 	 * 
 	 * ~~~ php
-	 * $this->assertEmpty(array());
+	 * $this->assertNotEmpty(array());
 	 * ~~~
 	 * 
 	 * ~~~ php
-	 * $this->assertEmpty(1);
+	 * $this->assertNotEmpty(1);
 	 * ~~~
 	 * 
 	 * @param  string $actual   The variable to check
