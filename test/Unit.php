@@ -897,6 +897,52 @@ abstract class Unit extends \lithium\test\Unit {
 		return $this->assert($result[0] != $actual, $message, compact('expected', 'result'));
 	}
 
+	/**
+	 * Will mark the test true if $actual ends with $expected
+	 *
+	 * ~~~ php
+	 * $this->assertStringEndsWith('bar', 'foobar');
+	 * ~~~
+	 *
+	 * ~~~ php
+	 * $this->assertStringEndsWith('foo', 'foobar');
+	 * ~~~
+	 * 
+	 * @param  string $expected The suffix to check for
+	 * @param  string $actual   The value to test against
+	 * @param  string $message  optional
+	 * @return bool
+	 */
+	public function assertStringEndsWith($expected, $actual, $message = '{:message}') {
+		return $this->assert(preg_match("/$expected$/", $actual, $matches) === 1, $message, array(
+			'expected' => $expected,
+			'result' => $actual
+		));
+	}
+
+	/**
+	 * Will mark the test true if $actual starts with $expected
+	 *
+	 * ~~~ php
+	 * $this->assertStringStartsWith('foo', 'foobar');
+	 * ~~~
+	 *
+	 * ~~~ php
+	 * $this->assertStringStartsWith('bar', 'foobar');
+	 * ~~~
+	 * 
+	 * @param  string $expected The prefix to check for
+	 * @param  string $actual   The value to test against
+	 * @param  string $message  optional
+	 * @return bool
+	 */
+	public function assertStringStartsWith($expected, $actual, $message = '{:message}') {
+		return $this->assert(preg_match("/^$expected/", $actual, $matches) === 1, $message, array(
+			'expected' => $expected,
+			'result' => $actual
+		));
+	}
+
 	// http://www.phpunit.de/manual/current/en/writing-tests-for-phpunit.html#writing-tests-for-phpunit.assertions.assertArrayHasKey
 
 }

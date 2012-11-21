@@ -889,4 +889,48 @@ class UnitTest extends \lithium\test\Unit {
 		), $result['data']);
 	}
 
+	public function testAssertStringEndsWithTrue() {
+		$this->assertTrue($this->unit->assertStringEndsWith('bar', 'foobar'));
+		
+		$results = $this->unit->results();
+		$result = array_pop($results);
+		
+		$this->assertEqual('pass', $result['result']);
+	}
+
+	public function testAssertStringEndsWithFalse() {
+		$this->assertFalse($this->unit->assertStringEndsWith('foo', 'foobar'));
+		
+		$results = $this->unit->results();
+		$result = array_pop($results);
+		
+		$this->assertEqual('fail', $result['result']);
+		$this->assertEqual(array(
+			'expected' => 'foo',
+			'result' => 'foobar'
+		), $result['data']);
+	}
+
+	public function testAssertStringStartsWithTrue() {
+		$this->assertTrue($this->unit->assertStringStartsWith('foo', 'foobar'));
+		
+		$results = $this->unit->results();
+		$result = array_pop($results);
+		
+		$this->assertEqual('pass', $result['result']);
+	}
+
+	public function testAssertStringStartsWithFalse() {
+		$this->assertFalse($this->unit->assertStringStartsWith('bar', 'foobar'));
+		
+		$results = $this->unit->results();
+		$result = array_pop($results);
+		
+		$this->assertEqual('fail', $result['result']);
+		$this->assertEqual(array(
+			'expected' => 'bar',
+			'result' => 'foobar'
+		), $result['data']);
+	}
+
 }
