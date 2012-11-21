@@ -12,7 +12,7 @@ abstract class HelperUnit extends Unit {
 	 * @param  string $helper The name of the helper.
 	 * @return object         The generated helper.
 	 */
-	protected static function create($helper) {
+	public function create($helper) {
 		$_context = new MockRenderer(array(
 			'request' => new Request(array()),
 		));
