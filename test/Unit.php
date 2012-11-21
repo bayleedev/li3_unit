@@ -120,11 +120,13 @@ abstract class Unit extends \lithium\test\Unit {
 	 * ~~~ php
 	 * $this->assertClassHasAttribute('__construct', '\ReflectionClass');
 	 * ~~~
+	 *
 	 * 
+	 * @see    self::assertObjectHasAttribute()
 	 * @throws InvalidArgumentException If $class is not an object
 	 * @throws ReflectionException      If the given class does not exist
 	 * @param  string $attributeName    The attribute you wish to look for
-	 * @param  string $class            The class name or object
+	 * @param  string $class            The class name
 	 * @param  string $message          optional
 	 * @return bool
 	 */
@@ -150,10 +152,11 @@ abstract class Unit extends \lithium\test\Unit {
 	 * $this->assertClassNotHasAttribute('name', '\ReflectionClass');
 	 * ~~~
 	 *
+	 * @see    self::assertObjectNotHasAttribute()
 	 * @throws InvalidArgumentException If $class is not an object
 	 * @throws ReflectionException      If the given class does not exist
 	 * @param  string $attributeName    The attribute you wish to look for
-	 * @param  string $class            The class name or object
+	 * @param  string $class            The class name
 	 * @param  string $message          optional
 	 * @return bool
 	 */
@@ -751,6 +754,7 @@ abstract class Unit extends \lithium\test\Unit {
 	 * $this->assertObjectHasAttribute('__construct', '\ReflectionClass');
 	 * ~~~
 	 *
+	 * @see    self::assertClassHasAttribute()
 	 * @throws InvalidArgumentException If $object is not an object
 	 * @param  string $attributeName    The attribute you wish to look for
 	 * @param  string $object           The object to assert
@@ -779,6 +783,7 @@ abstract class Unit extends \lithium\test\Unit {
 	 * $this->assertObjectNotHasAttribute('name', '\ReflectionClass');
 	 * ~~~
 	 *
+	 * @see    self::assertClassHasNotAttribute()
 	 * @throws InvalidArgumentException If $object is not an object
 	 * @param  string $attributeName    The attribute you wish to look for
 	 * @param  string $object           The object to assert
