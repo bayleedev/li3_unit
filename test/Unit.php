@@ -847,6 +847,56 @@ abstract class Unit extends \lithium\test\Unit {
 		));
 	}
 
+	/**
+	 * Will mark the test true if $actual matches $expected using PHP's build in sprintf format
+	 *
+	 * NOTICE: This differs from how PHPUnit does this same assertion method
+	 *
+	 * ~~~ php
+	 * $this->assertStringNotMatchesFormat('%d', '10')
+	 * ~~~
+	 *
+	 * ~~~ php
+	 * $this->assertStringNotMatchesFormat('%d', '10.555')
+	 * ~~~
+	 * 
+	 * @link   http://php.net/sprintf
+	 * @link   http://php.net/sscanf
+	 * @param  string $expected The expected format using sscanf's format
+	 * @param  string $actual   The value to compare against
+	 * @param  string $message  optional
+	 * @return bool
+	 */
+	public function assertStringMatchesFormat($expected, $actual, $message = '{:message}') {
+		$result = sscanf($actual, $expected);
+		return $this->assert($result[0] == $actual, $message, compact('expected', 'result'));
+	}
+
+	/**
+	 * Will mark the test true if $actual doesn't match $expected using PHP's build in sprintf format
+	 *
+	 * NOTICE: This differs from how PHPUnit does this same assertion method
+	 *
+	 * ~~~ php
+	 * $this->assertStringNotMatchesFormat('%d', '10.555')
+	 * ~~~
+	 *
+	 * ~~~ php
+	 * $this->assertStringNotMatchesFormat('%d', '10')
+	 * ~~~
+	 * 
+	 * @link   http://php.net/sprintf
+	 * @link   http://php.net/sscanf
+	 * @param  string $expected The expected format using sscanf's format
+	 * @param  string $actual   The value to compare against
+	 * @param  string $message  optional
+	 * @return bool
+	 */
+	public function assertStringNotMatchesFormat($expected, $actual, $message = '{:message}') {
+		$result = sscanf($actual, $expected);
+		return $this->assert($result[0] != $actual, $message, compact('expected', 'result'));
+	}
+
 	// http://www.phpunit.de/manual/current/en/writing-tests-for-phpunit.html#writing-tests-for-phpunit.assertions.assertArrayHasKey
 
 }

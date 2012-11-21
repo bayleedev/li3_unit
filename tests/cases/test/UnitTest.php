@@ -845,4 +845,48 @@ class UnitTest extends \lithium\test\Unit {
 		), $result['data']);
 	}
 
+	public function testAssertStringMatchesFormatTrue() {
+		$this->assertTrue($this->unit->assertStringMatchesFormat('%d', '10'));
+		
+		$results = $this->unit->results();
+		$result = array_pop($results);
+		
+		$this->assertEqual('pass', $result['result']);
+	}
+
+	public function testAssertStringMatchesFormatFalse() {
+		$this->assertFalse($this->unit->assertStringMatchesFormat('%d', '10.555'));
+		
+		$results = $this->unit->results();
+		$result = array_pop($results);
+		
+		$this->assertEqual('fail', $result['result']);
+		$this->assertEqual(array(
+			'expected' => '%d',
+			'result' => array('10')
+		), $result['data']);
+	}
+
+	public function testAssertStringNotMatchesFormatTrue() {
+		$this->assertTrue($this->unit->assertStringNotMatchesFormat('%d', '10.555'));
+		
+		$results = $this->unit->results();
+		$result = array_pop($results);
+		
+		$this->assertEqual('pass', $result['result']);
+	}
+
+	public function testAssertStringNotMatchesFormatFalse() {
+		$this->assertFalse($this->unit->assertStringNotMatchesFormat('%d', '10'));
+		
+		$results = $this->unit->results();
+		$result = array_pop($results);
+		
+		$this->assertEqual('fail', $result['result']);
+		$this->assertEqual(array(
+			'expected' => '%d',
+			'result' => array('10')
+		), $result['data']);
+	}
+
 }
