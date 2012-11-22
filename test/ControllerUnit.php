@@ -10,13 +10,13 @@ abstract class ControllerUnit extends Unit {
 	 * A copy of the created request for no real reason
 	 * @var  object
 	 */
-	protected static $request = null;
+	public $request = null;
 
 	/**
 	 * The full namespace of the controller
 	 * @var string
 	 */
-	protected static $controller = ""; 
+	public $controller = ""; 
 
 	/**
 	 * Will create a new instance of the controller for you to use
@@ -24,12 +24,12 @@ abstract class ControllerUnit extends Unit {
 	 * @param  array $options The various options you can find
 	 * @return object the created controller
 	 */
-	protected static function call($action, array $options = array()) {
+	public function call($action, array $options = array()) {
 		// Setup options
 		if(!isset($options['params'])) {
 			$options['params'] = array();
 		}
-		preg_match('/^.*\\\(.*)Controller$/i', static::$controller, $matches);
+		preg_match('/^.*\\\(.*)Controller$/i', $this->controller, $matches);
 		list(,$baseController) = $matches; // Find controller name
 		$options['params'] += array(
 			'controller' => $baseController,
@@ -37,14 +37,14 @@ abstract class ControllerUnit extends Unit {
 		);
 
 		// Create request
-		self::$request = new Request($options);
+		$this->request = new Request($options);
 
 		// Save params
-		self::$request->params = isset($options['params']) ? $options['params'] : self::$request->params;
+		$this->request->params = isset($options['params']) ? $options['params'] : $this->request->params;
 
 		// Create controller
-		$controller = static::$controller;
-		$controller = new $controller(array('request' => self::$request));
+		$controller = $this->controller;
+		$controller = new $controller(array('request' => $this->request));
 
 		// Call action and return
 		return $controller->$action();
