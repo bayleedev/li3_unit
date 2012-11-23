@@ -47,7 +47,7 @@ In `app/config/bootstrap/libraries.php` add:
 
 ### Extra Assertions
 
-Currently tests extend \lithium\test\Unit instead, extend \li3_unit\test\Unit which extends the default lithium Unit this gives you access to new assertion methods.
+Currently tests extend \lithium\test\Unit instead, extend \li3_unit\test\Unit which extends the default lithium Unit this gives you access to new assertion methods. To read up on all the different assertions visit the [assertions.md](https://github.com/BlaineSch/li3_unit/blob/master/assertions.md) file.
 
 ~~~ php
 <?php
