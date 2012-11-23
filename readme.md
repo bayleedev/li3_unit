@@ -11,6 +11,7 @@ Adds extra assert methods and simple ways to create models, controllers, and hel
 {
     "require": {
         ...
+        "composer/installers": "*",
         "blainesch/li3_unit": ">=1.0.0"
         ...
     }
