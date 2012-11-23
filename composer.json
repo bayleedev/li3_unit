@@ -1,0 +1,16 @@
+{
+	"name": "blainesch/li3_unit",
+	"type": "lithium-library",
+	"description": "Adds extra assert methods and simple ways to create models, controllers, and helpers.",
+	"keywords": ["lithium", "li3", "unit", "test", "testing", "unit testing"],
+	"homepage": "https://github.com/BlaineSch/li3_unit",
+	"license": "The BSD License",
+	"minimum-stability": "dev",
+	"authors": [
+		{
+			"name": "Blaine Schmeisser",
+			"email": "BlaineSch@gmail.com",
+			"homepage": "https://github.com/BlaineSch"
+		}
+	]
+}
