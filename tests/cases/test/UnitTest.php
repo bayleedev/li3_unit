@@ -447,14 +447,14 @@ class UnitTest extends \lithium\test\Unit {
 	}
 
 	public function testAssertFileEqualsTrue() {
-		$file1 = LITHIUM_APP_PATH . '/tests/mocks/md/file_1.md';
-		$file2 = LITHIUM_APP_PATH . '/tests/mocks/md/file_1.md.copy';
+		$file1 = LI3_UNIT_APP_PATH . '/tests/mocks/md/file_1.md';
+		$file2 = LI3_UNIT_APP_PATH . '/tests/mocks/md/file_1.md.copy';
 		$this->assertTrue($this->unit->assertFileEquals($file1, $file2));
 	}
 
 	public function testAssertFileEqualsFalse() {
-		$file1 = LITHIUM_APP_PATH . '/tests/mocks/md/file_1.md';
-		$file2 = LITHIUM_APP_PATH . '/tests/mocks/md/file_2.md';
+		$file1 = LI3_UNIT_APP_PATH . '/tests/mocks/md/file_1.md';
+		$file2 = LI3_UNIT_APP_PATH . '/tests/mocks/md/file_2.md';
 		$this->assertFalse($this->unit->assertFileEquals($file1, $file2));
 
 		$results = $this->unit->results();
@@ -468,8 +468,8 @@ class UnitTest extends \lithium\test\Unit {
 	}
 
 	public function testAssertFileNotEqualsTrue() {
-		$file1 = LITHIUM_APP_PATH . '/tests/mocks/md/file_1.md';
-		$file2 = LITHIUM_APP_PATH . '/tests/mocks/md/file_2.md';
+		$file1 = LI3_UNIT_APP_PATH . '/tests/mocks/md/file_1.md';
+		$file2 = LI3_UNIT_APP_PATH . '/tests/mocks/md/file_2.md';
 		$this->assertTrue($this->unit->assertFileNotEquals($file1, $file2));
 		
 		$results = $this->unit->results();
@@ -479,8 +479,8 @@ class UnitTest extends \lithium\test\Unit {
 	}
 
 	public function testAssertFileNotEqualsFalse() {
-		$file1 = LITHIUM_APP_PATH . '/tests/mocks/md/file_1.md';
-		$file2 = LITHIUM_APP_PATH . '/tests/mocks/md/file_1.md.copy';
+		$file1 = LI3_UNIT_APP_PATH . '/tests/mocks/md/file_1.md';
+		$file2 = LI3_UNIT_APP_PATH . '/tests/mocks/md/file_1.md.copy';
 		$this->assertFalse($this->unit->assertFileNotEquals($file1, $file2));
 
 		$results = $this->unit->results();
@@ -494,7 +494,7 @@ class UnitTest extends \lithium\test\Unit {
 	}
 
 	public function testAssertFileExistsTrue() {
-		$file1 = LITHIUM_APP_PATH . '/readme.md';
+		$file1 = LI3_UNIT_APP_PATH . '/readme.md';
 		$this->assertTrue($this->unit->assertFileExists($file1));
 		
 		$results = $this->unit->results();
@@ -504,7 +504,7 @@ class UnitTest extends \lithium\test\Unit {
 	}
 
 	public function testAssertFileExistsFalse() {
-		$file1 = LITHIUM_APP_PATH . '/does/not/exist.txt';
+		$file1 = LI3_UNIT_APP_PATH . '/does/not/exist.txt';
 		$this->assertFalse($this->unit->assertFileExists($file1));
 
 		$results = $this->unit->results();
@@ -512,13 +512,13 @@ class UnitTest extends \lithium\test\Unit {
 		
 		$this->assertEqual('fail', $result['result']);
 		$this->assertEqual(array(
-			'expected' => LITHIUM_APP_PATH . '/does/not/exist.txt',
+			'expected' => LI3_UNIT_APP_PATH . '/does/not/exist.txt',
 			'result' => false
 		), $result['data']);
 	}
 
 	public function testAssertFileNotExistsTrue() {
-		$file1 = LITHIUM_APP_PATH . '/does/not/exist.txt';
+		$file1 = LI3_UNIT_APP_PATH . '/does/not/exist.txt';
 		$this->assertTrue($this->unit->assertFileNotExists($file1));
 		
 		$results = $this->unit->results();
@@ -528,7 +528,7 @@ class UnitTest extends \lithium\test\Unit {
 	}
 
 	public function testAssertFileNotExistsFalse() {
-		$file1 = LITHIUM_APP_PATH . '/readme.md';
+		$file1 = LI3_UNIT_APP_PATH . '/readme.md';
 		$this->assertFalse($this->unit->assertFileNotExists($file1));
 
 		$results = $this->unit->results();
@@ -536,7 +536,7 @@ class UnitTest extends \lithium\test\Unit {
 		
 		$this->assertEqual('fail', $result['result']);
 		$this->assertEqual(array(
-			'expected' => LITHIUM_APP_PATH . '/readme.md',
+			'expected' => LI3_UNIT_APP_PATH . '/readme.md',
 			'result' => false
 		), $result['data']);
 	}

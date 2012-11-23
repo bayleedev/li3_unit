@@ -12,7 +12,7 @@ class ModelUnitTest extends \lithium\test\Unit {
 		\lithium\data\Connections::add('li3_unit_mock_default', array(
 			'type' => 'database',
 			'adapter' => 'Sqlite3',
-			'database' => LITHIUM_APP_PATH . '/resources/db/demo.sqlite'
+			'database' => LI3_UNIT_APP_PATH . '/resources/db/demo.sqlite'
 		));
 		$this->modelUnit = new MockModelUnit();
 	}
