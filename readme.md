@@ -77,10 +77,10 @@ use li3_unit\test\ControllerUnit;
 
 class UsersControllerTest extends ControllerUnit {
 
-	protected static $controller = 'app\\controllers\\UsersController';
+	public $controller = 'app\\controllers\\UsersController';
 
 	public function testSomething() {
-		$data = self::call('profile', array(
+		$data = $this->call('profile', array(
 			'params' => array(
 				'name' => 'Blaine',
 			)
@@ -100,24 +100,21 @@ Similar to before we will change ControllerUnit to HelperUnit and have access to
 ~~~ php
 <?php
 
-namespace app\tests\cases\controllers;
+namespace app\tests\cases\extensions\helper;
 
-use li3_unit\test\ControllerUnit;
+use li3_unit\test\HelperUnit;
 
-class UsersControllerTest extends ControllerUnit {
+class ProseTest extends HelperUnit {
 
-	protected static $controller = 'app\\controllers\\UsersController';
+	public $prose;
 
-	public function testSomething() {
-		$data = self::call('profile', array(
-			'params' => array(
-				'name' => 'Blaine',
-			)
-		));
+	public function setUp() {
+		$this->prose = $this->create('Prose');
+	}
 
-		$user = $data['user'];
-
-		$this->assertEqual('Blaine', $user->username);
+	public function testFourEightStarStatement() {
+		$expected = 'Amazing';
+		$this->assertEqual($expected, $this->prose->starStatement(4.8));
 	}
 
 }
@@ -135,16 +132,16 @@ use li3_unit\test\ModelUnit;
 
 class UsersTest extends ModelUnit {
 
-	public static $model = 'app\\models\\Users';
+	public $model = 'app\\models\\Users';
 
-	public static $defaultData = array(
+	public $defaultData = array(
 		'id' => '10',
 		'fname' => 'Blaine',
 		'lname' => 'Smith',
 	);
 
 	public function testName() {
-		$user = self::create(array(
+		$user = $this->create(array(
 			'fname' => 'Blaine',
 			'lname' => 'Schmeisser',
 		));
